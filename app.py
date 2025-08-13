@@ -11,25 +11,31 @@ st.set_page_config(
 )
 
 
-# --- MODEL LOADING ---
 # Use st.cache_resource to load the model only once, which makes the app faster.
+# --- MODEL LOADING ---
 @st.cache_resource
 def load_keras_model():
     """
     Loads the pre-trained Keras model from the .keras file.
-    Includes a try-except block for robust error handling.
+    Uses relative path so it works locally and on Streamlit Cloud.
     """
-try:
-    import os
-    from tensorflow.keras.models import load_model
+    try:
+        import os
+        from tensorflow.keras.models import load_model
 
-    base_dir = os.path.dirname(__file__)
-    model_path = os.path.join(base_dir, "cat_dog_classifier.keras")
-    model = load_model(model_path)
-return model
-except Exception as e:
-    st.error(f"Error loading model: {e}")
-    return None
+        # Get the folder of app.py
+        base_dir = os.path.dirname(__file__)
+        model_path = os.path.join(base_dir, "cat_dog_classifier.keras")  # model in same folder
+
+        # Load the model
+        model = load_model(model_path)
+        return model
+
+    except Exception as e:
+        # Display error if model can't be loaded
+        st.error(f"Error loading model: {e}")
+        return None
+
 
 
 # Load the model. The result is cached.
@@ -92,5 +98,6 @@ st.sidebar.write("---")
 st.sidebar.write("**About this App**")
 
 st.sidebar.write("This app uses a Convolutional Neural Network (CNN) built with TensorFlow/Keras.")
+
 
 
