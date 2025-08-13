@@ -19,7 +19,7 @@ def load_keras_model():
     Loads the pre-trained Keras model from the .keras file.
     Includes a try-except block for robust error handling.
     """
-   try:
+try:
     import os
     from tensorflow.keras.models import load_model
 
@@ -92,3 +92,4 @@ st.sidebar.write("---")
 st.sidebar.write("**About this App**")
 
 st.sidebar.write("This app uses a Convolutional Neural Network (CNN) built with TensorFlow/Keras.")
+
