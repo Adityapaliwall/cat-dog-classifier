@@ -19,14 +19,18 @@ def load_keras_model():
     Loads the pre-trained Keras model from the .keras file.
     Includes a try-except block for robust error handling.
     """
-    try:
-        # Load the model from the file
-        model = tf.keras.models.load_model("D:\Projects\PYTHON\catAndDog\dataset\cat_dog_classifier.keras")
-        return model
-    except Exception as e:
-        # If the model can't be loaded, display an error in the app
-        st.error(f"Error loading model: {e}")
-        return None
+   try:
+    import os
+    from tensorflow.keras.models import load_model
+
+    base_dir = os.path.dirname(__file__)
+    model_path = os.path.join(base_dir, "cat_dog_classifier.keras")
+    model = load_model(model_path)
+    return model
+except Exception as e:
+    st.error(f"Error loading model: {e}")
+    return None
+
 
 # Load the model. The result is cached.
 model = load_keras_model()
@@ -86,4 +90,5 @@ elif model is None:
 
 st.sidebar.write("---")
 st.sidebar.write("**About this App**")
+
 st.sidebar.write("This app uses a Convolutional Neural Network (CNN) built with TensorFlow/Keras.")
