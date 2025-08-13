@@ -26,7 +26,7 @@ try:
     base_dir = os.path.dirname(__file__)
     model_path = os.path.join(base_dir, "cat_dog_classifier.keras")
     model = load_model(model_path)
-    return model
+return model
 except Exception as e:
     st.error(f"Error loading model: {e}")
     return None
@@ -92,4 +92,5 @@ st.sidebar.write("---")
 st.sidebar.write("**About this App**")
 
 st.sidebar.write("This app uses a Convolutional Neural Network (CNN) built with TensorFlow/Keras.")
+
 
